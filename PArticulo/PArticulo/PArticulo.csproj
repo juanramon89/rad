@@ -34,9 +34,13 @@
     <Reference Include="System" />
     <Reference Include="MySql.Data, Version=6.4.3.0, Culture=neutral, PublicKeyToken=20449f9ba87f7ae2">
       <Private>False</Private>
+<<<<<<< HEAD
     </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\..\..\usr\lib\mono\gac\MySql.Data\6.4.3.0__20449f9ba87f7ae2\MySql.Data.dll</HintPath>
+=======
+      <Package>mysql-connector-net</Package>
+>>>>>>> 47c715e83b255b8db9b832499807eea5ba2a296c
     </Reference>
   </ItemGroup>
   <ItemGroup>
