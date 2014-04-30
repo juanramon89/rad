@@ -1,6 +1,7 @@
 using System;
 using MySql.Data.MySqlClient;
 using System.Data;
+using Pserpis;
 
 namespace PArticulo
 {
@@ -10,7 +11,7 @@ namespace PArticulo
 		{
 			string connectionString =
 				"Server=localhost;" +
-				"Database=dbprueba;" +
+				"Database=dbrepaso;" +
 				"User Id=root;" +
 				"Password=sistemas";
 			
@@ -24,7 +25,9 @@ namespace PArticulo
 			//string hora = DateTime.Now.ToString();
 			
 			updateMySqlCommand.CommandText = "update articulo set nombre =@nombre where id=1";
-			
+			string nombre = "nombre";
+			string valor = DateTime.Now.ToString();
+			/*
 			// Pasar como parametro:
 			MySqlParameter mySqlParameter = updateMySqlCommand.CreateParameter();
 			mySqlParameter.ParameterName = "nombre";
@@ -33,6 +36,13 @@ namespace PArticulo
 			
 			//Ejecutar update:
 			updateMySqlCommand.ExecuteNonQuery();
+			*/
+			
+			
+			
+			MyClass.introduccionParametro(nombre,valor,updateMySqlCommand);
+			
+			mostrar(mySqlConnection);
 			
 			//Borrado de datos:
 			MySqlCommand deleteMySqlCommand = mySqlConnection.CreateCommand();
@@ -41,7 +51,7 @@ namespace PArticulo
 			
 			MySqlParameter delMySqlParameter = deleteMySqlCommand.CreateParameter();
 			delMySqlParameter.ParameterName = "numero";
-			delMySqlParameter.Value = "5";
+			delMySqlParameter.Value = 5;
 			deleteMySqlCommand.Parameters.Add(delMySqlParameter);
 			
 			deleteMySqlCommand.ExecuteNonQuery();
@@ -65,8 +75,8 @@ namespace PArticulo
 			
 			
 			
-			
 			/*
+			
 			//Conectamos y abrimos la BD:
 			IDbConnection dbConnection = new MySqlConnection(connectionString);
 			
@@ -103,7 +113,9 @@ namespace PArticulo
 			}
 			
 			dataReader.Close();
-			dbConnection.Close();*/
+			dbConnection.Close();
+			
+			*/
 		}
 		
 		public static void mostrar(MySqlConnection mySqlConnection){

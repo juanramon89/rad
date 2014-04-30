@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pserpis", "Pserpis\Pserpis.csproj", "{78979F11-6947-4B8E-8F04-429DCDF980C3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78979F11-6947-4B8E-8F04-429DCDF980C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78979F11-6947-4B8E-8F04-429DCDF980C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78979F11-6947-4B8E-8F04-429DCDF980C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78979F11-6947-4B8E-8F04-429DCDF980C3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Pserpis\Pserpis.csproj
+	EndGlobalSection
+EndGlobal
