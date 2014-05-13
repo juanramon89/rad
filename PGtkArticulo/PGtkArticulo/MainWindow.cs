@@ -33,8 +33,75 @@ public partial class MainWindow: Gtk.Window
 		treeView.Model = listStore;
 		fillListStore(listStore, dataReader);
 		dataReader.Close();
-
+		
+		editAction.Sensitive = false;
+		deleteAction.Sensitive = false;
+		
+		editAction.Activated += delegate {
+			if (treeView.Selection.CountSelectedRows() == 0)
+				return;
+			TreeIter treeIter;
+			treeView.Selection.GetSelected(out treeIter);
+			object id = listStore.GetValue (treeIter, 0);
+			object nombre = listStore.GetValue (treeIter, 1);
+			
+			MessageDialog messageDialog = new MessageDialog(this,
+                DialogFlags.DestroyWithParent,
+                MessageType.Info,
+                ButtonsType.Ok,
+                "Seleccionado Id={0} Nombre={1}", id, nombre);
+			messageDialog.Title = "Este es el título del mensaje";
+			messageDialog.Run ();
+			messageDialog.Destroy ();
+		};
+		
+		deleteAction.Activated += delegate {
+			if (treeView.Selection.CountSelectedRows() == 0)
+				return;
+			TreeIter treeIter;
+			treeView.Selection.GetSelected(out treeIter);
+			object id = listStore.GetValue (treeIter, 0);
+			
+			MessageDialog messageDialog = new MessageDialog(this,
+                DialogFlags.DestroyWithParent,
+                MessageType.Question,
+                ButtonsType.YesNo,
+                "¿Quieres eliminar el elemento seleccionado?");
+			messageDialog.Title = "Eliminar elemento";
+			ResponseType response = (ResponseType)messageDialog.Run ();
+			messageDialog.Destroy ();
+			if (response == ResponseType.Yes ) {
+				IDbCommand deleteMySqlCommand = dbConnection.CreateCommand();
+				deleteMySqlCommand.CommandText = "delete from articulo where id=" + id;
+				deleteMySqlCommand.ExecuteNonQuery();
+			}
+		};
+		
+		treeView.Selection.Changed += delegate {
+			bool hasSelectedRows = treeView.Selection.CountSelectedRows() > 0;
+			editAction.Sensitive = hasSelectedRows;
+			deleteAction.Sensitive = hasSelectedRows;
+		};
+		
+		refreshAction.Activated += delegate {
+			dbConnection.Close();
+			//treeView.Destroy();
+			
+			dbConnection.Open();
+			selectCommand = dbConnection.CreateCommand(); 
+		selectCommand.CommandText = "SELECT * FROM articulo";
+		dataReader = selectCommand.ExecuteReader();
+		
+		addColumns(dataReader);
+		
+		listStore =  createListStore(dataReader.FieldCount);
+		treeView.Model = listStore;
+		fillListStore(listStore, dataReader);
+		dataReader.Close();
+		};
 	}
+	
+	
 	
 	private ListStore createListStore(int fieldCount) {
 
