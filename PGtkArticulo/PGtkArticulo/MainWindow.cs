@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 using System.Collections.Generic;
+using PGtkArticulo;
 
 public partial class MainWindow: Gtk.Window
 {	
@@ -25,16 +26,14 @@ public partial class MainWindow: Gtk.Window
 			
 		dbConnection.Open ();
 		
-		IDbCommand selectCommand = dbConnection.CreateCommand (); 
-		selectCommand.CommandText = "SELECT * FROM articulo";
-		IDataReader dataReader = selectCommand.ExecuteReader ();
+		string selectSql = "SELECT * FROM articulo";
 		
-		addColumns (dataReader);
+		TreeViewFiller treeViewFiller = new TreeViewFiller();
+		treeViewFiller.Fill(treeView,dbConnection,selectSql);
 		
-		ListStore listStore = createListStore (dataReader.FieldCount);
-		treeView.Model = listStore;
-		fillListStore (listStore, dataReader);
-		dataReader.Close ();
+		ListStore listStore = treeViewFiller.getListStore;
+			
+		
 		
 		editAction.Sensitive = false;
 		deleteAction.Sensitive = false;
@@ -85,7 +84,7 @@ public partial class MainWindow: Gtk.Window
 			editAction.Sensitive = hasSelectedRows;
 			deleteAction.Sensitive = hasSelectedRows;
 		};
-		
+		/*
 		refreshAction.Activated += delegate {
 			
 			selectCommand = dbConnection.CreateCommand (); 
@@ -95,9 +94,9 @@ public partial class MainWindow: Gtk.Window
 			listStore.Clear ();
 			fillListStore (listStore, dataReader);
 			dataReader.Close ();
-		};
+		};*/
 	}
-	
+	/*
 	private ListStore createListStore (int fieldCount)
 	{
 
@@ -126,7 +125,7 @@ public partial class MainWindow: Gtk.Window
 			listStore.AppendValues (values.ToArray ());
 		}
 
-	}
+	}*/
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
 	{
