@@ -84,17 +84,19 @@ public partial class MainWindow: Gtk.Window
 			editAction.Sensitive = hasSelectedRows;
 			deleteAction.Sensitive = hasSelectedRows;
 		};
-		/*
+		
 		refreshAction.Activated += delegate {
 			
+			treeViewFiller.Refresh();
+			/*
 			selectCommand = dbConnection.CreateCommand (); 
 			selectCommand.CommandText = "SELECT * FROM articulo";
 			dataReader = selectCommand.ExecuteReader ();
 
 			listStore.Clear ();
 			fillListStore (listStore, dataReader);
-			dataReader.Close ();
-		};*/
+			dataReader.Close ();*/
+		};
 	}
 	/*
 	private ListStore createListStore (int fieldCount)

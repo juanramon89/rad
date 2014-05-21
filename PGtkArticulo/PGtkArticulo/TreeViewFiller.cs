@@ -9,11 +9,13 @@ namespace PGtkArticulo
 	{
 		private TreeView treeView;
 		private ListStore listStore;
+		private IDbCommand dbCommand;
 		
 		public void Fill(TreeView treeView,IDbConnection dbConnection,string selectText){
 			this.treeView = treeView;
 			IDbCommand selectCommand = dbConnection.CreateCommand (); 
 			selectCommand.CommandText = selectText;
+			this.dbCommand = selectCommand;
 			IDataReader dataReader = selectCommand.ExecuteReader ();
 			
 			addColumns(dataReader);
@@ -49,6 +51,13 @@ namespace PGtkArticulo
 		
 		public ListStore getListStore{
 			get {return this.listStore;}
+		}
+		
+		public void Refresh() {
+			listStore.Clear ();
+			IDataReader dataReader = dbCommand.ExecuteReader();
+			fillListStore(listStore,dataReader);
+			dataReader.Close ();
 		}
 	}
 }
